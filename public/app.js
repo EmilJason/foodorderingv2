@@ -124,6 +124,17 @@ const Header = {
           },
         },
         "Toggle Theme"
+      ),
+      m(
+        "button",
+        {
+          class: "toggle__menu__btn",
+          onclick: () => {
+            localStorage.clear();
+            m.route.set("/foods");
+          },
+        },
+        "Clear Cart"
       )
     ),
 };
@@ -152,8 +163,8 @@ const Foods = {
       m(Header),
       m(
         ".foods__list",
-        state.foods.map((food) =>
-          m(".foods__item", [
+        state.foods.map((food,index) =>
+          m(".foods__item",{style: `--delay: ${index * 100}ms`}, [
             m("img", {
               class: "foods__image",
               src: food.imageUrl,

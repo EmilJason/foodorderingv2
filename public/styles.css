@@ -4,6 +4,11 @@
 :root{
     --font-family: 'Poppins', sans-serif;
 }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -72,6 +77,11 @@ body.dark {
     left: -15px;
 }
 
+.header > .toggle__menu__btn {
+    display: none;
+    align-self: start;
+}
+
 .foods__list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -84,6 +94,18 @@ body.dark {
     border-radius: 8px;
     /* overflow: hidden; */
     transition: all 0.3s;
+    animation: popupScaleOutInZoom 1s var(--delay) both;
+}
+@keyframes popupScaleOutInZoom {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    
 }
 
 .foods__item > *:not(img):not(button) {
@@ -181,4 +203,14 @@ body.dark {
 }
 .cart__button > i{
     margin-right: 10px;
+}
+
+@media screen and (max-width: 670px) {
+   .header__nav, .header__nav + .btn {
+        display: none;
+    }
+    .header > .toggle__menu__btn {
+        display: block;
+    }
+    
 }
