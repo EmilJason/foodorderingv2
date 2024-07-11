@@ -24,6 +24,8 @@ app.get('/foods', (req, res) => {
     }
 });
 
+
+// for vercel headless setup
 app.post('/api/create-checkout-session', async (req, res) => {
     console.log("checkout session", req.body)
     const session = await stripe.checkout.sessions.create({
@@ -45,28 +47,33 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     res.json({ id: session.id });
 });
-// app.post('/create-checkout-session', async (req, res) => {
+
+//for express setup
+// app.post('/api/create-checkout-session', async (req, res) => {
 //     console.log("checkout session", req.body)
 //     const session = await stripe.checkout.sessions.create({
 //         payment_method_types: ['card'],
-//         line_items: [{
+//         line_items: req.body.items.map(item=>({
 //             price_data: {
 //                 currency: 'php',
 //                 product_data: {
-//                     name: 'T-shirt',
+//                     name: item.name,
 //                 },
-//                 unit_amount: 222000,
+//                 unit_amount: parseInt(item.price) * 100,
 //             },
 //             quantity: 1,
-//         }],
+//         })),
 //         mode: 'payment',
-//         success_url: 'http://localhost:3000/#!/success',
-//         cancel_url: 'http://localhost:3000/#!/cancel',
+//         success_url: `${process.env.PUBLIC_URL}/#!/success`,
+//         cancel_url: `${process.env.PUBLIC_URL}/#!/cancel`,
 //     });
 
 //     res.json({ id: session.id });
 // });
 
+
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
+
+module.exports = app;
